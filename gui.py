@@ -97,6 +97,12 @@ class NewsGUI(QWidget):
         layout.addLayout(date_layout)
         layout.addLayout(button_layout)
         layout.addWidget(self.progress)
+
+        self.status_label = QLabel("Menunggu...")
+        self.status_label.setAlignment(Qt.AlignCenter)
+        self.status_label.setStyleSheet("color: #555; font-style: italic;")
+        layout.addWidget(self.status_label)
+
         layout.addWidget(self.table)
 
         self.setLayout(layout)
@@ -188,10 +194,8 @@ class NewsGUI(QWidget):
     def export_data(self):
         print("Export CSV diklik")
 
-
-app = QApplication(sys.argv)
-
-window = NewsGUI()
-window.show()
-
-sys.exit(app.exec_())
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = NewsGUI()
+    window.show()
+    sys.exit(app.exec_())
