@@ -2,7 +2,7 @@ import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import QDate, Qt
 from PyQt5.QtWidgets import QHeaderView
-
+from scraper_engine import NewsScraper
 
 class NewsGUI(QWidget):
 
@@ -158,31 +158,37 @@ class NewsGUI(QWidget):
 
     # ===== FUNCTION START =====
     def start_scraping(self):
-
+    
         url = self.url_input.text()
         limit = self.limit_input.value()
 
-        print("Start scraping...")
-        print("URL:", url)
-        print("Limit:", limit)
+        print("Start scraping:", url)
 
-        self.progress.setValue(40)
+        scraper = NewsScraper()
 
-        data = [
-            ["Contoh Judul Berita 1","2026-03-06","Isi berita contoh"],
-            ["Contoh Judul Berita 2","2026-03-06","Isi berita contoh"],
-            ["Contoh Judul Berita 3","2026-03-06","Isi berita contoh"]
-        ]
+        links = scraper.get_article_links(url, max_links=limit)
+
+        data = []
+
+        for i, link in enumerate(links):
+
+            article = scraper.extract_article_data(link)
+
+            if article:
+                data.append(article)
+
+            progress = int((i+1)/len(links)*100)
+            self.progress.setValue(progress)
+
+        scraper.close()
 
         self.table.setRowCount(len(data))
 
-        for row,item in enumerate(data):
-            self.table.setItem(row,0,QTableWidgetItem(item[0]))
-            self.table.setItem(row,1,QTableWidgetItem(item[1]))
-            self.table.setItem(row,2,QTableWidgetItem(item[2]))
+        for row, item in enumerate(data):
 
-        self.progress.setValue(100)
-
+                self.table.setItem(row,0,QTableWidgetItem(item["judul"]))
+                self.table.setItem(row,1,QTableWidgetItem(item["tanggal"]))
+                self.table.setItem(row,2,QTableWidgetItem(item["isi"]))
 
     # ===== EXPORT =====
     def export_data(self):
