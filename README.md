@@ -26,9 +26,9 @@ News Web Scraper adalah aplikasi berbasis Python yang dirancang untuk mengambil 
 
 Data yang diambil meliputi:
 
--Judul berita
--Tanggal publikasi (jika tersedia)
--Isi berita
+- Judul berita
+- Tanggal publikasi (jika tersedia)
+- Isi berita
 
 Aplikasi ini menggunakan Selenium sebagai mesin utama untuk membuka halaman web dan mengambil konten secara dinamis, serta PyQt untuk menyediakan antarmuka pengguna yang interaktif.
 
@@ -40,5 +40,6 @@ Aplikasi ini menggunakan Selenium sebagai mesin utama untuk membuka halaman web 
 
 - Hasil Scrapping
 <img width="1919" height="1078" alt="Screenshot 2026-03-07 092415" src="https://github.com/user-attachments/assets/bae7b5f9-c3c7-44c9-913a-c46b5678c8eb" />
+
 
 
